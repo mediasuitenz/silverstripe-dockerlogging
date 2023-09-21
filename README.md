@@ -1,15 +1,10 @@
-# Silverstripe CMS supported module skeleton
+# Docker log handler
 
-A useful skeleton to more easily create a [Silverstripe CMS Module](https://docs.silverstripe.org/en/developer_guides/extending/modules/) that conform to the
-[Module Standard](https://docs.silverstripe.org/en/developer_guides/extending/modules/#module-standard).
+For Silverstripe 4.x and Monolog 1.x
 
-This README contains descriptions of the parts of this module base you should customise to meet you own module needs.
-For example, the module name in the H1 above should be you own module name, and the description text you are reading now
-is where you should provide a good short explanation of what your module does.
 
-Where possible we have included default text that can be included as is into your module and indicated in
-other places where you need to customise it
 
+# TODO
 
 - Update the module's `composer.json` with your requirements and package name
 - Add and push to a VCS repository
