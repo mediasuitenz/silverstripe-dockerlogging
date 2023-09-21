@@ -1,1 +1,17 @@
-# see https://docs.silverstripe.org/en/developer_guides/configuration/configuration/
+---
+Name: dockerlogging
+After: '#logging'
+---
+SilverStripe\Core\Injector\Injector:
+  Psr\Log\LoggerInterface:
+    calls:
+      pushDockerLogHandler: [ pushHandler, [ '%$DockerLoggingHandler' ] ]
+      pushDockerProcessor: [ pushProcessor, [ '%$DockerLogProcessor' ] ]
+      # pushIntroProcessor: [ pushProcessor, [ '%$IntrospectionHandler' ] ]
+  DockerLoggingHandler:
+    class: MadeCurious\DockerLogging\DockerLogHandler
+  DockerLogProcessor:
+    class: MadeCurious\DockerLogging\DockerLogProcessor
+  # Unused, but this is an example of adding a further monolog processor.
+  IntrospectionHandler:
+    class: Monolog\Processor\IntrospectionProcessor

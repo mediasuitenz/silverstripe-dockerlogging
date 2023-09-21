@@ -1,13 +1,12 @@
 <?php
 
-namespace Madecurious\DockerLogging;
+namespace MadeCurious\DockerLogging;
 
 use Monolog\Formatter\JsonFormatter;
-use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
-class DockerMonologHandler extends AbstractProcessingHandler
+class DockerLogHandler extends AbstractProcessingHandler
 {
     /**
      * @var resource
@@ -16,12 +15,6 @@ class DockerMonologHandler extends AbstractProcessingHandler
 
     /**
      * Constructor
-     *
-     * @param int $processId PID, this should be 1
-     * @param int $fileDescriptor Accept 1: stdout, or 2: stderr
-     * @param string|int $level Log level
-     * @param bool $bubble
-     * @param FormatterInterface|null $formatter
      */
     public function __construct(
         $level = Logger::DEBUG,
@@ -29,6 +22,7 @@ class DockerMonologHandler extends AbstractProcessingHandler
     )
     {
         parent::__construct($level, $bubble);
+
     }
 
     /**
@@ -37,7 +31,7 @@ class DockerMonologHandler extends AbstractProcessingHandler
     public function close()
     {
         if (is_resource($this->stream)) {
-            pclose($this->stream);
+            fclose($this->stream);
         }
 
         parent::close();
@@ -49,9 +43,9 @@ class DockerMonologHandler extends AbstractProcessingHandler
     protected function write(array $record)
     {
         if (!is_resource($this->stream)) {
-            $this->stream = popen("php://stdout", 'w');
+            $this->stream = fopen("php://stdout", 'w');
         }
-
+        $record['source'] = 'silverstripe';
         fwrite($this->stream, (string)$record['formatted']);
     }
 
