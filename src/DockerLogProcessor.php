@@ -14,7 +14,7 @@ class DockerLogProcessor implements ProcessorInterface
         unset($record['datetime']);
 
         # If we're getting a request ID from nginx, include this
-        if($_SERVER['HTTP_X_REQUEST_ID']) {
+        if(isset($_SERVER['HTTP_X_REQUEST_ID'])) {
             $record['request_id'] = $_SERVER['HTTP_X_REQUEST_ID'];
         }
 
