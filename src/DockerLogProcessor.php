@@ -3,10 +3,11 @@
 namespace MadeCurious\DockerLogging;
 
 use Monolog\Processor\ProcessorInterface;
+use Monolog\LogRecord;
 
 class DockerLogProcessor implements ProcessorInterface
 {
-    public function __invoke(array $record)
+    public function __invoke(LogRecord $record)
     {
         # Add silverstripe and ISO86001 timestamp to all requests
         $now = new \DateTime("now", new \DateTimeZone("UTC"));
