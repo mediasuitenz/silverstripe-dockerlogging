@@ -47,8 +47,9 @@ class DockerLogHandler extends AbstractProcessingHandler
         if (!is_resource($this->stream)) {
             $this->stream = fopen("php://stdout", 'w');
         }
-        $record['source'] = 'silverstripe';
-        fwrite($this->stream, (string)$record['formatted']);
+        $record->extra['source'] = 'silverstripe';
+
+        fwrite($this->stream, (string)$record->formatted);
     }
 
     /**
