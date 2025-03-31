@@ -3,8 +3,10 @@
 namespace MadeCurious\DockerLogging;
 
 use Monolog\Formatter\JsonFormatter;
+use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use Monolog\LogRecord;
 
 class DockerLogHandler extends AbstractProcessingHandler
 {
@@ -28,7 +30,7 @@ class DockerLogHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    public function close()
+    public function close(): void
     {
         if (is_resource($this->stream)) {
             fclose($this->stream);
@@ -40,19 +42,20 @@ class DockerLogHandler extends AbstractProcessingHandler
     /**
      * {@inheritdoc}
      */
-    protected function write(array $record)
+    protected function write(LogRecord $record): void
     {
         if (!is_resource($this->stream)) {
             $this->stream = fopen("php://stdout", 'w');
         }
-        $record['source'] = 'silverstripe';
-        fwrite($this->stream, (string)$record['formatted']);
+        $record->extra['source'] = 'silverstripe';
+
+        fwrite($this->stream, (string)$record->formatted);
     }
 
     /**
      * {@inheritDoc}
      */
-    protected function getDefaultFormatter()
+    protected function getDefaultFormatter(): FormatterInterface
     {
         return new JsonFormatter();
     }
