@@ -20,7 +20,7 @@ class DockerLogHandler extends AbstractProcessingHandler
      */
     public function __construct(
         $level = Logger::DEBUG,
-        bool $bubble = true,
+        bool $bubble = true
     )
     {
         parent::__construct($level, $bubble);
