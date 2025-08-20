@@ -5,7 +5,7 @@ namespace MadeCurious\DockerLogging;
 use Monolog\Processor\ProcessorInterface;
 use Monolog\LogRecord;
 
-class DockerLogProcessor implements ProcessorInterface
+class ExtraLogProcessor implements ProcessorInterface
 {
     public function __invoke(LogRecord $record)
     {

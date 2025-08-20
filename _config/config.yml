@@ -5,13 +5,17 @@ After: '#logging'
 SilverStripe\Core\Injector\Injector:
   Psr\Log\LoggerInterface:
     calls:
-      pushDockerLogHandler: [ pushHandler, [ '%$DockerLoggingHandler' ] ]
-      pushDockerProcessor: [ pushProcessor, [ '%$DockerLogProcessor' ] ]
+      pushStdoutLogHandler: [ pushHandler, [ '%$StdoutLoggingHandler' ] ]
+      pushExtraProcessor: [ pushProcessor, [ '%$ExtraLogProcessor' ] ]
       # pushIntroProcessor: [ pushProcessor, [ '%$IntrospectionHandler' ] ]
-  DockerLoggingHandler:
-    class: MadeCurious\DockerLogging\DockerLogHandler
-  DockerLogProcessor:
-    class: MadeCurious\DockerLogging\DockerLogProcessor
+  StdoutLoggingHandler:
+    class: Monolog\Handler\StreamHandler
+    constructor:
+      - "php://stdout"
+    properties:
+      formatter: '%$Monolog\Formatter\JsonFormatter'
+  ExtraLogProcessor:
+    class: MadeCurious\DockerLogging\ExtraLogProcessor
   # Unused, but this is an example of adding a further monolog processor.
   IntrospectionHandler:
     class: Monolog\Processor\IntrospectionProcessor
