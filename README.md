@@ -1,6 +1,6 @@
-# Docker log handler
+# Container Runtime Logging
 
-Plug-and-play log handler for routing Silverstripe logs to stdout for use in an OCI runtime.
+Plug-and-play config for routing Silverstripe logs to stdout for use in an OCI runtime. For use with a php-fpm based container.
 
 This is an opinionated module that:
 * routes all logs to stdout
@@ -8,8 +8,9 @@ This is an opinionated module that:
 * adds `extra[source]`, always set to 'silverstripe'
 * adds `extra[timestamp]`, an ISO86001 UTC date
 * adds `extra[severity]`, lowercased log level
+* adds `extra[request_id]`, nginx request ID from HTTP_X_REQUEST_ID, if exists
 
-For Silverstripe 4.x and Monolog 1.x
+For Silverstripe 5.x and Monolog 1.x
 
 ## Installation
 
